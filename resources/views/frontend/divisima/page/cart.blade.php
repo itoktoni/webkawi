@@ -59,7 +59,8 @@
 							<tbody>
 								@if (!Cart::isEmpty())
 								@foreach (Cart::getContent() as $item_cart)
-								<tr id="render" class="{{ $errors->has("cart.$loop->index.qty") ? 'border-error' : '' }}">
+								<tr id="render"
+									class="{{ $errors->has("cart.$loop->index.qty") ? 'border-error' : '' }}">
 									<td class="total-col">
 										<img src="{{ Helper::files('product/thumbnail_'.$item_cart->attributes['image']) }}"
 											alt="{{ $item_cart->name }}">
@@ -78,7 +79,8 @@
 									<td class="quy-col">
 										<div class="quantity">
 											<div class="pro-qty">
-												<input name="cart[{{$loop->index}}][qty]" type="text"
+												<input id="qty" class="qty" name="cart[{{$loop->index}}][qty]"
+													type="text"
 													value="{{ old("cart[$loop->index][qty]") ?? $item_cart->quantity }}">
 												<input type="hidden" id="idproduct"
 													value="{{ $item_cart->attributes['option'] }}"
@@ -167,17 +169,16 @@
 	@endif
 	</div>
 </section>
-<!-- cart section end -->
 
 @endsection
 
 @push('javascript')
 
 <script>
-	$(document).on('click', '.add-card', function() {
-		var product = $(this).attr('alt');
-		$.notiny({ text: 'ADD '+product, position: 'right-top' });
-	});
+	// $(document).on('click', '.add-card', function() {
+	// 	var product = $(this).attr('alt');
+	// 	$.notiny({ text: 'ADD '+product, position: 'right-top' });
+	// });
 
 	 /*-------------------
     	Quantity change
@@ -187,18 +188,9 @@
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function() {
 		var $button = $(this);
-		var oldValue = $button.parent().find('input').val();
-		var product = $button.parent().find('#idproduct').val();
-
-		$.ajax({
-			type: 'POST', // Metode pengiriman data menggunakan POST
-			url: '{{ route("update_cart") }}',
-			data: { 'product': product, 'qty': oldValue }, // Data yang akan dikirim ke file pemroses
-			success: function(response) { // Jika berhasil
-				console.log(response);
-			}
-		});
-
+		var oldValue = $button.parent().find('#qty').val();
+		var idproduct = $button.parent().find('#idproduct').val();
+		var user = "{{ Auth()->user()->id }}";
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
@@ -209,8 +201,62 @@
 				newVal = 1;
 			}
 		}
-		$button.parent().find('input').val(newVal);
+	
+		var setnumber;
+		$.ajax({
+			type: 'POST', // Metode pengiriman data menggunakan POST
+			url: '{{ route("update_cart") }}',
+			data: { 'product': idproduct+'', 'qty': qty, '_token' : "{{ csrf_token() }}" }, // Data yang akan dikirim ke file pemroses
+				success: function(response) { // Jika berhasil
+				if(Number.isInteger(response)){
+					setnumber = response;
+				}
+				else{
+					setnumber = oldValue;
+					$.notiny({ text: check['qty'], position: 'right-top' });
+				}
+			}
+		});
+
+		$button.parent().find('#qty').val(setnumber);
+
+		setTimeout(function(){
+		location.reload();
+		}, 100);
 	});
+
+	$('.qty').change(function () {
+
+		var idproduct = $(this).parent().find('#idproduct').val();
+		var newVal = $(this).val();  
+		var setnumber;
+
+		$.ajax({
+			type: 'POST', // Metode pengiriman data menggunakan POST
+			url: '{{ route("update_cart") }}',
+			data: { 'product': idproduct+'', 'qty': newVal, '_token' : "{{ csrf_token() }}" }, // Data yang akan dikirim ke file pemroses
+				success: function(response) { // Jika berhasil
+				if(response['status'] == false){
+					var inputQty = $(this).parent().find('.qty');
+					inputQty.attr('value', response['number']);
+					$.notiny({ text: response['error'], position: 'right-top' });
+					setTimeout(function(){
+					location.reload();
+					}, 2000);
+					return true;
+				}
+				else{
+					setTimeout(function(){
+					location.reload();
+					}, 100);
+				}
+			}
+		});
+
+		
+
+	});
+
 
 </script>
 

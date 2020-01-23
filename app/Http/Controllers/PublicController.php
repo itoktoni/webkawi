@@ -45,12 +45,12 @@ use Modules\Marketing\Dao\Repositories\SliderRepository;
 use Modules\Marketing\Dao\Repositories\SosmedRepository;
 use Modules\Marketing\Dao\Repositories\ContactRepository;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Cart;
 use Modules\Finance\Dao\Models\Account;
 use Modules\Finance\Dao\Repositories\AccountRepository;
 use Modules\Procurement\Dao\Models\Purchase;
 use Modules\Procurement\Dao\Repositories\PurchasePrepareRepository;
 use Modules\Procurement\Emails\CreateOrderEmail as EmailsCreateOrderEmail;
+use Cart;
 
 class PublicController extends Controller
 {
@@ -516,6 +516,13 @@ class PublicController extends Controller
 
     public function cart()
     {
+        //  Cart::update("P191203005L1", array(
+        //     'quantity' => [
+        //         'relative' => false,
+        //         'value' => 5
+        //     ], // so if the current product has a quantity of 4, another 2 will be added so this will result to 6
+        // ));
+
         // Cart::clear();
         if (request()->isMethod('POST')) {
 
@@ -728,7 +735,7 @@ class PublicController extends Controller
         $list_city = [];
         $list_location = [];
         $order = new OrderRepository();
-
+        $account = Helper::shareOption((new BankRepository()), false, true);
         $courier = $order->courier;
 
         if (Auth::check()) {
@@ -744,11 +751,36 @@ class PublicController extends Controller
             $location = Auth::user()->location;
         }
 
+        if ($province) {
+            $list_city = City::where('rajaongkir_city_province_id', $province)->get()->sortBy('rajaongkir_city_name')->pluck('rajaongkir_city_name', 'rajaongkir_city_id')->toArray();
+        }
+
+        if ($city) {
+            $list_location = Area::where('rajaongkir_area_city_id', $city)->get()->sortBy('rajaongkir_area_name')->pluck('rajaongkir_area_name', 'rajaongkir_area_id')->toArray();
+        }
+
+        if (Cache::has('province')) {
+            $list_province =  Cache::get('province');
+        } else {
+            $list_province = Cache::rememberForever('province', function () {
+                return Province::get()->sortBy('province')->pluck('rajaongkir_province_name', 'rajaongkir_province_id')->prepend(' Choose Province', '0')->toArray();
+            });
+        }
+
+
         $validate = [];
         if (request()->isMethod('POST')) {
 
             $discount = Cart::getConditions()->first();
             $request = request()->all();
+            $validator1 = Validator::make($request, [
+                'sales_order_rajaongkir_courier' => 'required',
+                'sales_order_rajaongkir_ongkir' => 'required',
+            ], [], [
+                'sales_order_rajaongkir_courier' => 'Expedition Harus Dipilih',
+                'sales_order_rajaongkir_ongkir' => 'Ongkir Harus Dipilih',
+            ]);
+
             $address = $request['sales_order_rajaongkir_address'];
             $email = $request['sales_order_email'];
             $name = $request['sales_order_rajaongkir_name'];
@@ -760,12 +792,32 @@ class PublicController extends Controller
             $city = $request['sales_order_rajaongkir_city_id'];
             $location = $request['sales_order_rajaongkir_area_id'];
 
+            if ($validator1->fails()) {
+                return View(Helper::setViewFrontend(__FUNCTION__))->with([
+                    'address' => $address,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'notes' => $notes,
+                    'name' => $name,
+                    'account' => $account,
+                    'postcode' => $postcode,
+                    'province' => $province,
+                    'city' => $city,
+                    'location' => $location,
+                    'list_city' => $list_city,
+                    'list_location' => $list_location,
+                    'list_province' => $list_province,
+                    'courier' => $courier,
+                    'ongkir' => $ongkir,
+                ])->withErrors($validator1);
+            }
+
+            $saveOngkir = 0;
             if (request()->has('sales_order_rajaongkir_ongkir')) {
 
                 $post_to = $location;
                 $post_weight = request()->get('sales_order_rajaongkir_weight');
                 $post_courier = request()->get('sales_order_rajaongkir_courier');
-                $saveOngkir = 0;
                 $response = Curl::to(route('ongkir'))->withData([
                     'to' => $post_to,
                     'weight' => $post_weight,
@@ -802,6 +854,8 @@ class PublicController extends Controller
                 'sales_order_rajaongkir_name' => 'required',
                 'sales_order_rajaongkir_phone' => 'required',
                 'sales_order_rajaongkir_weight' => 'required',
+                'sales_order_rajaongkir_courier' => 'required',
+                'sales_order_rajaongkir_ongkir' => 'required',
             ];
             $request['sales_order_total'] = Cart::getTotal() + $saveOngkir;
             $validate = Validator::make($request, $rules, $order->custom_attribute);
@@ -849,23 +903,7 @@ class PublicController extends Controller
             return redirect()->back()->with(['success' => true]);
         }
 
-        if ($province) {
-            $list_city = City::where('rajaongkir_city_province_id', $province)->get()->sortBy('rajaongkir_city_name')->pluck('rajaongkir_city_name', 'rajaongkir_city_id')->toArray();
-        }
 
-        if ($city) {
-            $list_location = Area::where('rajaongkir_area_city_id', $city)->get()->sortBy('rajaongkir_area_name')->pluck('rajaongkir_area_name', 'rajaongkir_area_id')->toArray();
-        }
-
-        if (Cache::has('province')) {
-            $list_province =  Cache::get('province');
-        } else {
-            $list_province = Cache::rememberForever('province', function () {
-                return Province::get()->sortBy('province')->pluck('rajaongkir_province_name', 'rajaongkir_province_id')->prepend(' Choose Province', '0')->toArray();
-            });
-        }
-
-        $account = Helper::shareOption((new BankRepository()),false, true);
         return View(Helper::setViewFrontend(__FUNCTION__))->with([
             'address' => $address,
             'email' => $email,

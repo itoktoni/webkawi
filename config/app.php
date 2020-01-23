@@ -271,6 +271,7 @@ return [
         'BARCODE1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'BARCODE2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Str'      => 'Illuminate\Support\Str',
+        'Cart'      => Cart::class,
     ],
 
 ];

@@ -29,12 +29,15 @@
 					</button>
 			</div>
 			@endif
+
+			
 		</div>
 
 		<div class="row">
+			
 			@if (Cart::getContent()->count() > 0)
 			<div class="col-lg-4 order-1 order-lg-2">
-
+				
 				<div class="checkout-cart">
 					<ul class="product-list">
 						@php
@@ -106,6 +109,7 @@
 			</div>
 
 			<div id="billing" class="col-lg-8 order-2 order-lg-1">
+
 				{!!Form::open(['route' => 'checkout', 'class' => 'checkout-form', 'files' => true]) !!}
 				<div class="cf-title">Billing Address : Weight <span id="delivery">{{ number_format($total_gram) }}</span>gr
 				</div>

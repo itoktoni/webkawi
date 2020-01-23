@@ -1,10 +1,11 @@
 <?php
 
 use App\Dao\Models\Action;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 Auth::routes();
 Route::group(
@@ -115,3 +116,66 @@ auth mechanizme
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('reset', 'UserController@resetRedis')->name('reset');
 Route::get('reboot', 'UserController@resetRouting')->name('reboot');
+
+
+
+Route::post('/update_cart', function () {
+    $index = 0;
+    $request = request()->all();
+    $validate = Validator::make(
+        $request,
+        [
+            'qty' => 'numeric|min:1',
+            'product' => 'required',
+        ],
+        [],
+        [
+            'qty' => 'Input must correct',
+        ]
+    );
+
+    if ($validate->fails()) {
+
+        return [
+            'status' => false,
+            'error' => $validate->errors()->getMessages(),
+            'number' => $request['qty']
+        ];
+
+    } else {
+        $stock = DB::table('view_stock_product')->where('id', $request['product'])->first();
+        $input_qty = floatval($request['qty']);
+        $data_qty = $stock->qty;
+        $data_product = $stock->id;
+
+        if ($input_qty > $data_qty) {
+
+            Cart::session(Cart::getSessionKey())->update($data_product, array(
+                'quantity' => [
+                    'relative' => false,
+                    'value' => $data_qty
+                ], // so if the current product has a quantity of 4, another 2 will be added so this will result to 6
+            ));
+
+            return [
+                'status' => false,
+                'error' => 'Stock Tidak Cukup',
+                'number' => $data_qty
+            ];
+        }
+
+        Cart::session(Cart::getSessionKey())->update($data_product, array(
+            'quantity' => [
+                'relative' => false,
+                'value' => $input_qty
+            ], // so if the current product has a quantity of 4, another 2 will be added so this will result to 6
+        ));
+
+        return [
+            'status' => true,
+            'error' => '',
+            'number' => $input_qty
+        ];
+    }
+
+})->name('update_cart');
