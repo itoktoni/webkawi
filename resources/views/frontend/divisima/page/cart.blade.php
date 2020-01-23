@@ -66,7 +66,7 @@
 											alt="{{ $item_cart->name }}">
 									</td>
 									<td class="product-col" style="margin-right:20px;margin-left:20px;">
-										<div class="">
+										<div style="margin-top:50px;">
 											<h4 class="text-left">
 												<a class="text-secondary" style="font-size:15px;"
 													href="{{ route('single_product', ['slug' => Str::slug($item_cart->name)]) }}">
@@ -90,12 +90,11 @@
 									</td>
 									<td class="size-col">
 										<h4 class="text-right">
-											<p style="margin-bottom:-5px;margin-top:20px;">
-												{{ number_format($item_cart->price) }}</p>
 
-											@if (config('website.tax'))
-											<span>+</span>
-											<p>
+											<p style="margin-top:0px;margin-bottom:0px;">{{ number_format($item_cart->price) }}</p>
+											@if (config('website.tax') && !empty($item_cart->getConditions()))
+											<p style="margin-bottom:0px;">
+												+
 												{{ number_format($item_cart->getConditions()->getValue() * $item_cart->quantity) }}
 												{{ $item_cart->getConditions()->getName() }}
 											</p>
@@ -105,7 +104,7 @@
 									<td class="size-col">
 										<div style="margin-right:20px;">
 											<h4 class="text-right">
-												{{ config('website.tax') ? number_format(($item_cart->quantity * $item_cart->price) + ($item_cart->getConditions()->getValue() * $item_cart->quantity)) : number_format($item_cart->quantity * $item_cart->price) }}
+												{{ config('website.tax') && $item_cart->getConditions() ? number_format(($item_cart->quantity * $item_cart->price) + ($item_cart->getConditions()->getValue() * $item_cart->quantity)) : number_format($item_cart->quantity * $item_cart->price) }}
 											</h4>
 										</div>
 									</td>
@@ -190,7 +189,6 @@
 		var $button = $(this);
 		var oldValue = $button.parent().find('#qty').val();
 		var idproduct = $button.parent().find('#idproduct').val();
-		var user = "{{ Auth()->user()->id }}";
 		if ($button.hasClass('inc')) {
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
