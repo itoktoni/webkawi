@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 // use Helper;
 // use Curl;
 /*
@@ -178,4 +179,49 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::post('/stock', 'PublicController@stock')->name('stock');
+
+Route::post('/update_cart', function($model){
+    $index = 0;
+    $request = request()->all();
+    dd($request);
+    foreach ($request['cart'] as $value) {
+
+        $validate = Validator::make(
+            $request,
+            [
+                'cart.*.qty' => 'numeric|min:1',
+                'cart.*.option' => 'required',
+            ],
+            [],
+            [
+                'cart.' . $index . '.qty' => 'Input must correct',
+            ]
+        );
+
+        if ($validate->fails()) {
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        $stock = DB::table('view_stock_product')->where('id', $value['option'])->first();
+
+        $input_qty = floatval($value['qty']);
+        $data_qty = $stock->qty;
+        $data_product = $stock->id;
+
+        if ($input_qty > $data_qty) {
+            $validate->errors()->add('cart.' . $index . '.qty', 'Stock Not Enought !');
+        }
+
+        Cart::update($data_product, array(
+            'quantity' => [
+                'relative' => false,
+                'value' => $input_qty
+            ], // so if the current product has a quantity of 4, another 2 will be added so this will result to 6
+        ));
+
+        $index++;
+    }
+
+    return redirect()->back()->withErrors($validate)->withInput();
+})->name('update_cart');
 

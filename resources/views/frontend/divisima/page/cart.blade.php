@@ -59,7 +59,7 @@
 							<tbody>
 								@if (!Cart::isEmpty())
 								@foreach (Cart::getContent() as $item_cart)
-								<tr class="{{ $errors->has("cart.$loop->index.qty") ? 'border-error' : '' }}">
+								<tr id="render" class="{{ $errors->has("cart.$loop->index.qty") ? 'border-error' : '' }}">
 									<td class="total-col">
 										<img src="{{ Helper::files('product/thumbnail_'.$item_cart->attributes['image']) }}"
 											alt="{{ $item_cart->name }}">
@@ -78,8 +78,11 @@
 									<td class="quy-col">
 										<div class="quantity">
 											<div class="pro-qty">
-												{!! Form::text("cart[$loop->index][qty]", old("cart[$loop->index][qty]")
-												?? $item_cart->quantity) !!}
+												<input name="cart[{{$loop->index}}][qty]" type="text"
+													value="{{ old("cart[$loop->index][qty]") ?? $item_cart->quantity }}">
+												<input type="hidden" id="idproduct"
+													value="{{ $item_cart->attributes['option'] }}"
+													name="cart[{{ $loop->index }}][option]">
 											</div>
 										</div>
 									</td>
@@ -99,8 +102,6 @@
 									</td>
 									<td class="size-col">
 										<div style="margin-right:20px;">
-											<input type="hidden" value="{{ $item_cart->attributes['option'] }}"
-												name="cart[{{ $loop->index }}][option]">
 											<h4 class="text-right">
 												{{ config('website.tax') ? number_format(($item_cart->quantity * $item_cart->price) + ($item_cart->getConditions()->getValue() * $item_cart->quantity)) : number_format($item_cart->quantity * $item_cart->price) }}
 											</h4>
@@ -174,9 +175,42 @@
 
 <script>
 	$(document).on('click', '.add-card', function() {
-	var product = $(this).attr('alt');
-    $.notiny({ text: 'ADD '+product, position: 'right-top' });
-});
+		var product = $(this).attr('alt');
+		$.notiny({ text: 'ADD '+product, position: 'right-top' });
+	});
+
+	 /*-------------------
+    	Quantity change
+    --------------------- */
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function() {
+		var $button = $(this);
+		var oldValue = $button.parent().find('input').val();
+		var product = $button.parent().find('#idproduct').val();
+
+		$.ajax({
+			type: 'POST', // Metode pengiriman data menggunakan POST
+			url: '{{ route("update_cart") }}',
+			data: { 'product': product, 'qty': oldValue }, // Data yang akan dikirim ke file pemroses
+			success: function(response) { // Jika berhasil
+				console.log(response);
+			}
+		});
+
+		if ($button.hasClass('inc')) {
+			var newVal = parseFloat(oldValue) + 1;
+		} else {
+			// Don't allow decrementing below zero
+			if (oldValue > 1) {
+				var newVal = parseFloat(oldValue) - 1;
+			} else {
+				newVal = 1;
+			}
+		}
+		$button.parent().find('input').val(newVal);
+	});
 
 </script>
 
