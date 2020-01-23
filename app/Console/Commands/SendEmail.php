@@ -48,18 +48,18 @@ class SendEmail extends Command
      */
     public function handle()
     {
-        // $order = new OrderRepository();
-        // $order_data = $order->dataRepository()->whereNull('sales_order_email_date')->limit(1)->get();
-        // if ($order_data) {
+        $order = new OrderRepository();
+        $order_data = $order->dataRepository()->whereNull('sales_order_email_date')->limit(1)->get();
+        if ($order_data) {
 
-        //     foreach ($order_data as $order_item) {
+            foreach ($order_data as $order_item) {
 
-        //         $data = $order->showRepository($order_item->sales_order_id, ['customer', 'forwarder', 'detail', 'detail.product']);
-        //         Mail::to([$order_item->sales_order_email, config('website.email')])->send(new CreateOrderEmail($data));
-        //         $data->sales_order_email_date = date('Y-m-d H:i:s');
-        //         $data->save();
-        //     }
-        // }
+                $data = $order->showRepository($order_item->sales_order_id, ['customer', 'forwarder', 'detail', 'detail.product']);
+                Mail::to([$order_item->sales_order_email, config('website.email')])->send(new CreateOrderEmail($data));
+                $data->sales_order_email_date = date('Y-m-d H:i:s');
+                $data->save();
+            }
+        }
 
         $payment = new PaymentRepository();
         $payment_data = $payment->dataRepository()->whereNull('finance_payment_reference')->whereNull('finance_payment_email_date')->limit(1)->get();

@@ -898,7 +898,6 @@ class PublicController extends Controller
             }
 
             $data = $order->showRepository($id, ['customer', 'forwarder', 'detail', 'detail.product']);
-            Mail::to($email)->send(new CreateOrderEmail($data));
 
             return redirect()->back()->with(['success' => true]);
         }
