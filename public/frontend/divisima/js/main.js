@@ -179,6 +179,28 @@ $(window).on('load', function() {
     minamount.val('$' + rangeSlider.slider("values", 0));
     maxamount.val('$' + rangeSlider.slider("values", 1));
 
+    /*-------------------
+    	Quantity change
+    --------------------- */
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function() {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+
+        $button.parent().find('input').val(newVal);
+    });
 
     /*------------------
     	Single Product
