@@ -91,7 +91,8 @@
 									<td class="size-col">
 										<h4 class="text-right">
 
-											<p style="margin-top:0px;margin-bottom:0px;">{{ number_format($item_cart->price) }}</p>
+											<p style="margin-top:0px;margin-bottom:0px;">
+												{{ number_format($item_cart->price) }}</p>
 											@if (config('website.tax') && !empty($item_cart->getConditions()))
 											<p style="margin-bottom:0px;">
 												+
@@ -199,35 +200,36 @@
 				newVal = 1;
 			}
 		}
-	
 		var setnumber;
 		$.ajax({
 			type: 'POST', // Metode pengiriman data menggunakan POST
 			url: '{{ route("update_cart") }}',
-			data: { 'product': idproduct+'', 'qty': qty, '_token' : "{{ csrf_token() }}" }, // Data yang akan dikirim ke file pemroses
+			data: { 'product': idproduct+'', 'qty': newVal, '_token' : "{{ csrf_token() }}" }, // Data yang akan dikirim ke file pemroses
 				success: function(response) { // Jika berhasil
-				if(Number.isInteger(response)){
-					setnumber = response;
+				if(response['status'] == false){
+					$.notiny({ text: response['error'], position: 'right-top' });
+					$button.parent().find('#qty').val(oldValue);
 				}
 				else{
-					setnumber = oldValue;
-					$.notiny({ text: check['qty'], position: 'right-top' });
+					$button.parent().find('#qty').val(newVal);
 				}
 			}
 		});
 
-		$button.parent().find('#qty').val(setnumber);
-
-		setTimeout(function(){
-		location.reload();
-		}, 100);
+		// $button.parent().find('#qty').val(setnumber);
+		// return false;
+		// setTimeout(function(){
+		// location.reload();
+		// }, 100);
 	});
 
-	$('.qty').change(function () {
+
+	$(".qty").change(function(el) {
 
 		var idproduct = $(this).parent().find('#idproduct').val();
-		var newVal = $(this).val();  
+		var newVal = el.target.value;
 		var setnumber;
+		if(typeof idproduct !== 'undefined'){
 
 		$.ajax({
 			type: 'POST', // Metode pengiriman data menggunakan POST
@@ -250,10 +252,11 @@
 				}
 			}
 		});
-
-		
+}
 
 	});
+
+	
 
 
 </script>

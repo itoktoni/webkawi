@@ -67,7 +67,7 @@ $single_product->item_product_slug],'class'=>'form-horizontal','files'=>true])
 				</div>
 				<div class="quantity">
 					<p>Quantity</p>
-					<div class="pro-qty-product">
+					<div id="plusminus" class="pro-qty">
 						<input type="text" name="qty" value="{{ old('qty') ?? 1}}">
 					</div>
 				</div>
