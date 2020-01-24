@@ -89,7 +89,7 @@
 															{{ strtoupper($item->sales_order_rajaongkir_courier) ?? '' }}
 														</td>
 														<td data-header="Detail" align="center">
-															@if ($item->sales_order_status < 2)
+															@if ($item->sales_order_status < 2 || $item->sales_order_status == 0)
 															<a href="{{ route('confirmation', ['code' => $item->sales_order_id]) }}"
 																class="btn btn-success btn-sm">
 																Pay
