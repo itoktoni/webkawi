@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Item\Http\Controllers;
+namespace Modules\Sales\Http\Controllers;
 
 use Helper;
 use Plugin\Response;
 use App\Http\Controllers\Controller;
-use Modules\Item\Dao\Repositories\BrandRepository;
 use App\Http\Services\MasterService;
+use Modules\Sales\Dao\Repositories\CourierRepository;
 
-class BrandController extends Controller
+class CourierController extends Controller
 {
     public $template;
     public static $model;
@@ -16,7 +16,7 @@ class BrandController extends Controller
     public function __construct()
     {
         if (self::$model == null) {
-            self::$model = new BrandRepository();
+            self::$model = new CourierRepository();
         }
         $this->template  = Helper::getTemplate(__CLASS__);
     }

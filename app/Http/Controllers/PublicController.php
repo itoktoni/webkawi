@@ -51,6 +51,7 @@ use Modules\Procurement\Dao\Models\Purchase;
 use Modules\Procurement\Dao\Repositories\PurchasePrepareRepository;
 use Modules\Procurement\Emails\CreateOrderEmail as EmailsCreateOrderEmail;
 use Cart;
+use Modules\Sales\Dao\Repositories\CourierRepository;
 
 class PublicController extends Controller
 {
@@ -736,8 +737,8 @@ class PublicController extends Controller
         $list_location = [];
         $order = new OrderRepository();
         $account = Helper::shareOption((new BankRepository()), false, true);
-        $courier = $order->courier;
-
+        $data_courier = Helper::shareOption((new CourierRepository()), false, true, false);
+        $courier = $data_courier->pluck('rajaongkir_courier_name', 'rajaongkir_courier_code')->prepend('- Select Courier -', '')->all();
         if (Auth::check()) {
 
             $address = Auth::user()->address;
