@@ -38,6 +38,7 @@ class User extends Authenticatable
         'city',
         'location',
         'postcode',
+        'token',
     ];
     public $timestamps    = true; //timestamp will true
     public $incrementing  = true; //make creating id use lastcode

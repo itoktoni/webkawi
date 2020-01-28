@@ -147,13 +147,11 @@
 <div id="container_submit" class="form__field form__field--submit">
     <input id="submit" type="submit" value="log in">
 </div>
+<a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF;margin-bottom:20px" href="{{ route('password.request') }}">Forgot Password</a>
 
 {!! Form::close() !!}
 
-<div class="container_desc">
-    <p class="forgot">
-        <a href="{{ route('password.request') }}">Forgot Password</a>
-    </p>
+<div class="container_desc" style="margin-top:10px;">
     <div class="description">
         <div class="error">
             <p>

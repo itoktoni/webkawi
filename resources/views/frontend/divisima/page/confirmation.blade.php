@@ -54,7 +54,7 @@
 				<div class="col-md-12">
 					<input type="text" class="{{ $errors->has('finance_payment_note') ? 'error' : ''}}"
 						name="finance_payment_note" value="{{ old('finance_payment_note') ?? $order->sales_order_rajaongkir_notes ?? '' }}"
-						placeholder="Transfer By">
+						placeholder="Nama Rekening Pengirim">
 						{!! $errors->first('finance_payment_note', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>

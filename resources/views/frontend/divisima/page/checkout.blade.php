@@ -24,20 +24,20 @@
 			@if(session()->has('success'))
 			<div style="margin-top:-20px;" class="alert alert-success alert-dismissible fade show" role="alert">
 				<strong>Data Berhasil Dibuat, Segera lakukan Konfirmasi Pesanan !</strong>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 			@endif
 
-			
+
 		</div>
 
 		<div class="row">
-			
+
 			@if (Cart::getContent()->count() > 0)
 			<div class="col-lg-4 order-1 order-lg-2">
-				
+
 				<div class="checkout-cart">
 					<ul class="product-list">
 						@php
@@ -53,15 +53,20 @@
 								<img src="{{ Helper::files('product/thumbnail_'.$item_cart->attributes['image']) }}"
 									alt="{{ $item_cart->name }}">
 							</div>
-							<h6>{{ $item_cart->name }} {{ $item_cart->attributes['size'] }} {{ $item_cart->attributes['color'] }}</h6>
+							<h6>{{ $item_cart->name }} {{ $item_cart->attributes['size'] }}
+								{{ $item_cart->attributes['color'] }}</h6>
 							<p>Qty : {{ number_format($item_cart->quantity) }}</p>
 							<p>Price : {{ number_format($item_cart->price) }}</p>
 							@if (config('website.tax'))
-							<p>{{ $item_cart->getConditions()->getName() }} : {{ number_format(($item_cart->getConditions()->getValue() * $item_cart->quantity)) }}</p>
-							@else	
+							<p>{{ $item_cart->getConditions()->getName() }} :
+								{{ number_format(($item_cart->getConditions()->getValue() * $item_cart->quantity)) }}
+							</p>
+							@else
 							<p>Weight : {{ number_format($gram) }}gr</p>
 							@endif
-							<p>Total : {{ config('website.tax') ? number_format(($item_cart->quantity * $item_cart->price) + ($item_cart->getConditions()->getValue() * $item_cart->quantity)) : number_format($item_cart->quantity * $item_cart->price) }}</p>
+							<p>Total :
+								{{ config('website.tax') ? number_format(($item_cart->quantity * $item_cart->price) + ($item_cart->getConditions()->getValue() * $item_cart->quantity)) : number_format($item_cart->quantity * $item_cart->price) }}
+							</p>
 						</li>
 						@endforeach
 					</ul>
@@ -88,21 +93,20 @@
 					</ul>
 				</div>
 
-
 				<div class="checkout-cart" style="margin-top:30px;">
 					<ul class="product-list">
-						
+
 						@foreach ($account as $item_account)
 
 						@if (!$loop->first)
-							<hr style="margin-top:-10px;">
+						<hr style="margin-top:-10px;">
 						@endif
 						<li>
 							<h6>{{ $item_account->finance_bank_name }}</h6>
 							<p>Pemilik : {{ $item_account->finance_bank_account_name }}</p>
 							<p>Rek Number : {{ $item_account->finance_bank_account_number }}</p>
 						</li>
-						
+
 						@endforeach
 					</ul>
 				</div>
@@ -111,7 +115,8 @@
 			<div id="billing" class="col-lg-8 order-2 order-lg-1">
 
 				{!!Form::open(['route' => 'checkout', 'class' => 'checkout-form', 'files' => true]) !!}
-				<div class="cf-title">Billing Address : Weight <span id="delivery">{{ number_format($total_gram) }}</span>gr
+				<div class="cf-title">Billing Address : 
+					<input type="hidden" value="{{ number_format($total_gram) }}" id="delivery">
 				</div>
 				<input type="hidden" id="weight" name="sales_order_rajaongkir_weight">
 				<div class="row">
@@ -160,27 +165,24 @@
 				<div class="row address-inputs">
 					<div class="col-md-6">
 						<input id="email" class="{{ $errors->has('sales_order_rajaongkir_postcode') ? 'error' : ''}}"
-							name="sales_order_rajaongkir_postcode" type="text" value="{{ $postcode ?? null }}" placeholder="Postcode">
+							name="sales_order_rajaongkir_postcode" type="text" value="{{ $postcode ?? null }}"
+							placeholder="Postcode">
 					</div>
 					<div class="col-md-6">
 						<input type="text" class="{{ $errors->has('sales_order_rajaongkir_name') ? 'error' : ''}}"
 							name="sales_order_rajaongkir_name" value="{{ $name ?? null }}" placeholder="Name">
 					</div>
 					<div class="col-md-12">
-					<input type="text" class="{{ $errors->has('sales_order_rajaongkir_address') ? 'error' : ''}}" name="sales_order_rajaongkir_address" value="{{ $address ?? null }}" placeholder="Address">
+						<input type="text" class="{{ $errors->has('sales_order_rajaongkir_address') ? 'error' : ''}}"
+							name="sales_order_rajaongkir_address" value="{{ $address ?? null }}" placeholder="Address">
 					</div>
 					<div class="col-md-6">
-						<input id="email" class="{{ $errors->has('sales_order_email') ? 'error' : ''}}" name="sales_order_email" type="text" value="{{ $email ?? null }}" placeholder="Email">
+						<input id="email" class="{{ $errors->has('sales_order_email') ? 'error' : ''}}"
+							name="sales_order_email" type="text" value="{{ $email ?? null }}" placeholder="Email">
 					</div>
 					<div class="col-md-6">
-						<input type="text" class="{{ $errors->has('sales_order_rajaongkir_phone') ? 'error' : ''}}" name="sales_order_rajaongkir_phone" value="{{ $phone ?? null }}" placeholder="Phone no.">
-					</div>
-				</div>
-
-				<div class="cf-title">Nama Pemilik Rekening</div>
-				<div class="row address-inputs">
-					<div class="col-md-12">
-						<input type="text" class="{{ $errors->has('sales_order_rajaongkir_notes') ? 'error' : ''}}" value="{{ $notes ?? null }}" name="sales_order_rajaongkir_notes" placeholder="Nama Pemilik Rekening">
+						<input type="text" class="{{ $errors->has('sales_order_rajaongkir_phone') ? 'error' : ''}}"
+							name="sales_order_rajaongkir_phone" value="{{ $phone ?? null }}" placeholder="Phone no.">
 					</div>
 				</div>
 
@@ -201,7 +203,7 @@
 <script>
 	$(document).ready(function() {
 
-	var weight = numeral($('#delivery').text());
+	var weight = numeral($('#delivery').val());
 	$('#weight').val(weight.value());
 
 	$('#province').change(function() { // Jika Select Box id provinsi dipilih
@@ -247,7 +249,7 @@
 	$('#courier').change(function() { // Jika Select Box id provinsi dipilih
 		var to = $("#location option:selected").val();
 		var courier = $("#courier option:selected");
-		var weight = parseFloat($('#delivery').text());
+		var weight = parseFloat($('#delivery').val());
 		var ongkir = $('#ongkir');
 		var mask_courier = $('#mask_courier');
 		mask_courier.val(courier.text());
@@ -258,9 +260,10 @@
 			data: {'to':to, 'weight' : weight, 'courier' : courier.val()}, // Data yang akan dikirim ke file pemroses
 			success: function(response) { // Jika berhasil
 				ongkir.empty();
+				if(Object.keys(response).length > 0){
+
 				if(response[0].id){
 
-					console.log(response);
 					ongkir.append('<option value=""></option>');
 					$.each(response, function (idx, obj) {
 						ongkir.append('<option data="'+obj.cost+'" value="' + obj.service + '">' + obj.service + ' ( '+ obj.description + ' ) [ '+ obj.etd + ' ] - ' + obj.price+ ' </option>');
@@ -272,6 +275,8 @@
 				}
 				
 				ongkir.trigger("chosen:updated");
+}
+
 			}
 		});
 	});

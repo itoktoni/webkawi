@@ -113,10 +113,10 @@ Route::match(['get', 'post'], 'contact', 'PublicController@contact')->name('cont
 /*
 auth mechanizme
 */
+Route::get('resetme', '\App\Http\Controllers\Auth\ResetPasswordController@resetme')->name('resetme');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('reset', 'UserController@resetRedis')->name('reset');
 Route::get('reboot', 'UserController@resetRouting')->name('reboot');
-
 
 
 Route::post('/update_cart', function () {

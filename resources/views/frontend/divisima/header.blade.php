@@ -52,7 +52,7 @@
                 <li>
                     <div id="home" onclick="location.href = '{{ config('app.url') }}';">HOME</div>
                 </li>
-                <li><a href="{{ route('category') }}">CATERGORY</a>
+                <li><a href="{{ route('category') }}">CATEGORY</a>
                     @isset($public_category)
                     <ul class="sub-menu">
                         @foreach ($public_category->where('item_category_homepage', 1) as $category_item)
@@ -66,7 +66,6 @@
                 <li><a href="{{ route('contact') }}">CONTACT US</a></li>
                 <li><a href="{{ route('promo') }}">PROMO</a>
                 <li><a href="{{ route('shop') }}">SHOP<span class="new"> Sale </span></a></li>
-                <li><a href="{{ route('confirmation') }}">CONFIRMATION</a>
             </ul>
         </div>
     </nav>

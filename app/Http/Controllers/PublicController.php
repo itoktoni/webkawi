@@ -273,7 +273,7 @@ class PublicController extends Controller
     public function userprofile()
     {
         // session()->remove('info');
-        $user = new TeamRepository();
+        $user = new TeamRepository;
         $order = new OrderRepository();
 
         $province = $city = $location = $data = false;
@@ -320,12 +320,13 @@ class PublicController extends Controller
             if ($validate->fails()) {
                 return redirect()->back()->withInput()->withErrors($validate);
             }
-            if (!empty(request()->get('password'))) {
-                $request['password'] = bcrypt(request()->get('password'));
-            } else {
-                unset($request['password']);
-            }
 
+            // if (!empty(request()->get('password'))) {
+            //     $request['password'] = bcrypt(request()->get('password'));
+            // } else {
+            //     unset($request['password']);
+            // }
+            // dd($request);
             $success = $user->updateRepository(Auth::user()->id, $request);
             if ($success) {
                 session()->flash('info', 'Data Has been saved');
