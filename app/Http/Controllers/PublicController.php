@@ -787,7 +787,6 @@ class PublicController extends Controller
             $email = $request['sales_order_email'];
             $name = $request['sales_order_rajaongkir_name'];
             $phone = $request['sales_order_rajaongkir_phone'];
-            $notes = $request['sales_order_rajaongkir_notes'];
             $postcode = $request['sales_order_rajaongkir_postcode'];
 
             $province = $request['sales_order_rajaongkir_province_id'];
@@ -799,7 +798,6 @@ class PublicController extends Controller
                     'address' => $address,
                     'email' => $email,
                     'phone' => $phone,
-                    'notes' => $notes,
                     'name' => $name,
                     'account' => $account,
                     'postcode' => $postcode,
@@ -909,7 +907,6 @@ class PublicController extends Controller
             'address' => $address,
             'email' => $email,
             'phone' => $phone,
-            'notes' => $notes,
             'name' => $name,
             'account' => $account,
             'postcode' => $postcode,
