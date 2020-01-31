@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Dao\Repositories\GroupModuleRepository;
-use App\Http\Middleware\AccessMenu;
-use App\Http\Middleware\AccessMiddleware;
 use App\User;
+use Plugin\Alert;
+use Plugin\Response;
 use Illuminate\Http\Request;
+use App\Dao\Models\GroupUser;
+use App\Http\Middleware\AccessMenu;
+use App\Http\Services\MasterService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use App\Dao\Repositories\TeamRepository;
+use App\Http\Middleware\AccessMiddleware;
+use App\Dao\Repositories\GroupModuleRepository;
 
 class UserController extends Controller
 {
-
     public $table;
     public $key;
     public $field;
@@ -67,19 +71,24 @@ class UserController extends Controller
             $this->model->simpan(request()->all());
         }
 
-        $group = new \App\GroupUser;
+        $group = new GroupUser();
         return view('page.' . $this->template . '.create')->with([
             'template' => $this->template,
             'grub'     => $group->get(),
         ]);
     }
 
-    public function showProfile()
+    public function showProfile(MasterService $service)
     {
         if (request()->isMethod('POST')) {
-            $id   = request()->get('user_id');
-            $file = request()->file('gambar');
-            $this->model->ubah($id, request()->all(), $file);
+
+            $repo = new TeamRepository();
+            $check = $repo->updateRepository(Auth::user()->id, request()->all());
+            if ($check['status']) {
+                Alert::delete();
+            } else {
+                Alert::error($check['data']);
+            }
         }
 
         $group_module = new GroupModuleRepository();
@@ -102,17 +111,17 @@ class UserController extends Controller
 
     public function change_password(Request $request)
     {
-
         $this->validate($request, [
             'change_password' => 'required|min:8',
         ]);
 
+        $user = new TeamRepository();
         $password = $request->input('change_password');
-        $user     = $this->model->update_password(Auth::User()->user_id, $password);
-
-        $to_email = $request->input('email');
-
-        return Response::redirectBack();
+        $data     = $user->where($user->getKeyName(), Auth::User()->id)->update([
+            'password' => bcrypt($password)
+        ]);
+        Alert::create('Change password success !');
+        return Response::redirectToRoute('home');
     }
 
     public function resetRedis()

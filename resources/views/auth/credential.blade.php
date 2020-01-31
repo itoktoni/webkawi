@@ -7,8 +7,8 @@
     <title>{{ config('website.name', 'Laravel') }}</title>
     <link href="{{ Helper::files('logo/'.config('website.favicon','default_favicon.png')) }}" rel="shortcut icon">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ Helper::credential('default/css/index.css') }}">
-    <link rel="stylesheet" media="screen" href="{{ Helper::credential('default/css/style.css') }}">
+    <link rel="stylesheet" href="{{ Helper::credential('default/css/index.min.css') }}">
+    <link rel="stylesheet" media="screen" href="{{ Helper::credential('default/css/style.min.css') }}">
 </head>
 
 <body id="particles-js">

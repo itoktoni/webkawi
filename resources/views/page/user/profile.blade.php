@@ -226,6 +226,12 @@
                 </div>
             </div>
 
+            <div class="navbar-fixed-bottom" id="menu_action">
+                <div class="text-right" style="padding:5px">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
         </div>
         {!! Form::close() !!}
     </div>

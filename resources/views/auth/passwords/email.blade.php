@@ -128,7 +128,7 @@
     </svg>
 </div>
 
-<form class="form login" id="auth" role="form" method="POST" action="{{ url('/password/email') }}">
+<form class="form login" id="auth" role="form" method="POST" action="{{ route('password.email') }}">
     {{ csrf_field() }}
 
     <div class="form__field form__field--email">

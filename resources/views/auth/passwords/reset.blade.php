@@ -128,56 +128,58 @@
     </svg>
 </div>
 
-<form class="form login" id="auth" role="form" method="POST" action="{{ route('resetme') }}">
+<form class="form login" id="auth" method="POST" action="{{ route('password.request') }}">
     {{ csrf_field() }}
-    <input name="_method" type="hidden" value="HEAD">
-<div class="form__field form__field--email">
-    <div class="form__input-wrapper">
-        {!! Form::text('email', null, ['autofocus', 'class' => 'form__input','id' => 'login__email','placeholder' =>
-        'Type your email']) !!}
-    </div>
-</div>
-
-<div class="form__field form__field--password">
-    <div class="form__input-wrapper">
-        {!! Form::password('password', ['class' => 'form__input', 'id' => 'login__password','placeholder' =>
-        'Secure Password']) !!}
-    </div>
-</div>
-
-<div class="form__field form__field--password">
-    <div class="form__input-wrapper">
-        {!! Form::password('password_confirmation', ['class' => 'form__input', 'id' => 'login__password','placeholder' =>
-        'Confirm Password']) !!}
-    </div>
-</div>
-
-<div id="container_submit" class="form__field form__field--submit">
-    <input id="submit" type="submit" value="log in">
-</div>
-<a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF" href="{{ route('password.request') }}">Forgot
-    Password</a>
-
-{!! Form::close() !!}
-
-<div class="container_desc">
-    <div class="description">
-        <div class="error">
-            <p>
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                @if ($loop->first)
-                <span class="help-block text-danger text-left">
-                    <strong>{{ $error }}</strong><br>
-                </span>
-                @endif
-                @endforeach
-                @endif
-            </p>
+    <input type="hidden" name="token" value="{{ $token }}">
+    <div class="form__field form__field--email">
+        <div class="form__input-wrapper">
+            {!! Form::text('email', null, ['autofocus', 'class' => 'form__input','id' => 'login__email','placeholder' =>
+            'Type your email']) !!}
         </div>
     </div>
-</div>
+
+    <div class="form__field form__field--password">
+        <div class="form__input-wrapper">
+            {!! Form::password('password', ['class' => 'form__input', 'id' => 'login__password','placeholder' =>
+            'Secure Password']) !!}
+        </div>
+    </div>
+
+    <div class="form__field form__field--password">
+        <div class="form__input-wrapper">
+            {!! Form::password('password_confirmation', ['class' => 'form__input', 'id' =>
+            'login__password','placeholder' =>
+            'Confirm Password']) !!}
+        </div>
+    </div>
+
+    <div id="container_submit" class="form__field form__field--submit">
+        <input id="submit" type="submit" value="log in">
+    </div>
+    <a style="position: absolute;z-index: 99999999 !important;color:#FFFFFF"
+        href="{{ route('password.request') }}">Forgot
+        Password</a>
+
+    {!! Form::close() !!}
+
+    <div class="container_desc">
+        <div class="description">
+            <div class="error">
+                <p>
+                    @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                    @if ($loop->first)
+                    <span class="help-block text-danger text-left">
+                        <strong>{{ $error }}</strong><br>
+                    </span>
+                    @endif
+                    @endforeach
+                    @endif
+                </p>
+            </div>
+        </div>
+    </div>
 
 
 
-@endsection
+    @endsection
