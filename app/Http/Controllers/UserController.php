@@ -121,7 +121,7 @@ class UserController extends Controller
             'password' => bcrypt($password)
         ]);
         Alert::create('Change password success !');
-        return Response::redirectToRoute('home');
+        return Response::redirectTo('/dashboard');
     }
 
     public function resetRedis()
