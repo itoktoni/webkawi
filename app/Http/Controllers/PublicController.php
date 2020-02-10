@@ -778,9 +778,11 @@ class PublicController extends Controller
             $validator1 = Validator::make($request, [
                 'sales_order_rajaongkir_courier' => 'required',
                 'sales_order_rajaongkir_ongkir' => 'required',
+                'sales_order_rajaongkir_city_id' => 'required',
             ], [], [
                 'sales_order_rajaongkir_courier' => 'Expedition Harus Dipilih',
                 'sales_order_rajaongkir_ongkir' => 'Ongkir Harus Dipilih',
+                'sales_order_rajaongkir_city_id' => 'City Harus Dipilih',
             ]);
 
             $address = $request['sales_order_rajaongkir_address'];
@@ -789,9 +791,9 @@ class PublicController extends Controller
             $phone = $request['sales_order_rajaongkir_phone'];
             $postcode = $request['sales_order_rajaongkir_postcode'];
 
-            $province = $request['sales_order_rajaongkir_province_id'];
-            $city = $request['sales_order_rajaongkir_city_id'];
-            $location = $request['sales_order_rajaongkir_area_id'];
+            $province = $request['sales_order_rajaongkir_province_id'] ?? null;
+            $city = $request['sales_order_rajaongkir_city_id'] ?? null;
+            $location = $request['sales_order_rajaongkir_area_id'] ?? null;
 
             if ($validator1->fails()) {
                 return View(Helper::setViewFrontend(__FUNCTION__))->with([
