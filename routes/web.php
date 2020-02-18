@@ -69,8 +69,14 @@ Route::match(['get', 'post'], 'directory/{name}', 'HomeController@directory')->n
 /*
 developer configuration
 */
-Route::get('home', 'HomeController@dashboard');
+
 Route::get('dashboard', 'HomeController@dashboard')->name('home');
+Route::get(
+    'home',
+    function () {
+        return redirect()->route('home');
+    }
+);
 Route::get('route', 'HomeController@route')->name('route');
 Route::match(['get', 'post'], 'configuration', 'HomeController@configuration')->name('configuration');
 Route::match(['get', 'post'], 'website', 'HomeController@website')->name('website');
@@ -140,7 +146,6 @@ Route::post('/update_cart', function () {
             'error' => $validate->errors()->getMessages(),
             'number' => $request['qty']
         ];
-
     } else {
         $stock = DB::table('view_stock_product')->where('id', $request['product'])->first();
         $input_qty = floatval($request['qty']);
@@ -176,5 +181,4 @@ Route::post('/update_cart', function () {
             'number' => $input_qty
         ];
     }
-
 })->name('update_cart');
