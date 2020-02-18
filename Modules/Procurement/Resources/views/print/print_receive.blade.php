@@ -207,10 +207,13 @@
                     bgcolor="#FFFFFF">
 
                     @php
-                    $size = $item->purchase_detail_size ?? '';
-                    $color = $item->color->item_color_name ?? '';
+                    $size = $item->purchase_detail_size ?? null;
+                    $color = $item->color->item_color_name ?? null;
+                    $color_id = $item->color->item_color_id ?? null;
                     $data_detail = json_encode([
                     'product' => $item->purchase_detail_option,
+                    'size' => $size,
+                    'color' => $color_id,
                     'name' => $item->product->item_product_name.$size.$color,
                     'barcode' => '',
                     'qty' => $item->purchase_detail_qty_prepare
