@@ -56,7 +56,7 @@ class Product extends Model
     'item_product_name' => 'required|min:3',
     'item_product_sell' => 'required',
     'item_product_gram' => 'required|numeric',
-    'item_product_file' => 'file|image|mimes:jpeg,png,jpg|max:2048',
+    'item_product_file' => 'file|image|mimes:jpeg,png,jpg|max:4048',
   ];
 
   public $with = ['tax'];
