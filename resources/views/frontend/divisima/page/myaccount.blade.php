@@ -129,7 +129,7 @@
 																		<li
 																			class="list-group-item d-flex justify-content-between align-items-center">
 
-																			{{ $detail->product->item_product_name }}
+																			{{ $detail->product->item_product_name ?? '' }}
 																			{{ $detail->sales_order_detail_item_size ?? '' }}
 																			{{ $detail->color->item_color_name ?? '' }}
 																			<br>
