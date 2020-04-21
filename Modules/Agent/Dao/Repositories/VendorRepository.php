@@ -3,7 +3,7 @@
 namespace Modules\Agent\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Agent\Dao\Models\Vendor;
 use App\Dao\Interfaces\MasterInterface;
 

@@ -2,7 +2,7 @@
 
 namespace Modules\Forwarder\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Modules\Forwarder\Dao\Models\Tax;
 use Modules\Product\Models\Currency;

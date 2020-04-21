@@ -2,7 +2,7 @@
 
 namespace Modules\Sales\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Illuminate\Support\Facades\DB;
 use Modules\Sales\Dao\Models\Courier;

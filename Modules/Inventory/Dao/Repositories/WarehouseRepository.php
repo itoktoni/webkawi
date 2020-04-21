@@ -3,7 +3,7 @@
 namespace Modules\Inventory\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Inventory\Dao\Models\Warehouse;
 use App\Dao\Interfaces\MasterInterface;
 

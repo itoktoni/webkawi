@@ -3,7 +3,7 @@
 namespace Modules\Sales\Dao\Models;
 
 use App\User;
-use Helper;
+use Plugin\Helper;
 use Modules\Sales\Dao\Models\Area;
 use Modules\Sales\Dao\Models\City;
 use Illuminate\Support\Facades\Auth;

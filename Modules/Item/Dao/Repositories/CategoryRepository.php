@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;

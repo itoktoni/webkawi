@@ -2,7 +2,7 @@
 
 namespace Modules\Inventory\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Modules\Inventory\Dao\Models\Location;
 use Modules\Inventory\Dao\Models\Warehouse;

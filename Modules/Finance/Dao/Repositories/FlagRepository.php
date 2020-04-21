@@ -3,7 +3,7 @@
 namespace Modules\Finance\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Finance\Dao\Models\Flag;
 use App\Dao\Interfaces\MasterInterface;
 

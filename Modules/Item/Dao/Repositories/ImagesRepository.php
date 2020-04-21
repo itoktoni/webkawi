@@ -3,7 +3,7 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Item\Dao\Models\Images;
 use App\Dao\Interfaces\MasterInterface;
 

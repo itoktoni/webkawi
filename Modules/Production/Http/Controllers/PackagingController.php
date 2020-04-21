@@ -2,7 +2,7 @@
 
 namespace Modules\Production\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Response;
 use App\Http\Controllers\Controller;
 use Modules\Production\Dao\Repositories\PackagingRepository;

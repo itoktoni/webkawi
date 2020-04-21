@@ -3,7 +3,7 @@
 namespace Modules\Procurement\Http\Controllers;
 
 use PDF;
-use Helper;
+use Plugin\Helper;
 use Plugin\Alert;
 use Plugin\Response;
 use App\Http\Controllers\Controller;

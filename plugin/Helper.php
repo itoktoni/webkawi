@@ -1,5 +1,7 @@
 <?php
 
+namespace Plugin;
+
 use Illuminate\Support\Facades\DB;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Facades\File;

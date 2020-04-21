@@ -3,7 +3,7 @@
 namespace Modules\Forwarder\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Forwarder\Dao\Models\Tax;
 use App\Dao\Interfaces\MasterInterface;
 

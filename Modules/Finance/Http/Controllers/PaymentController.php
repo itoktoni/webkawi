@@ -2,7 +2,7 @@
 
 namespace Modules\Finance\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Alert;
 use Plugin\Response;
 use PDF;

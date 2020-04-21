@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Plugin\Response;
 use Illuminate\Support\Str;

@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Dao\Models;
 
-use Plugin;
+use Plugin\Helper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
@@ -61,7 +61,7 @@ class Category extends Model
       if (request()->has($file)) {
         $image = $model->item_category_image;
         if ($image) {
-          Helper::removeImage($image, Helper::getTemplate(__CLASS__));
+          // Helper::removeImage($image, Helper::getTemplate(__CLASS__));
         }
 
         $file = request()->file($file);

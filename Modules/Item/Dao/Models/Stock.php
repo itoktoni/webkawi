@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Dao\Models;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Inventory\Dao\Models\Location;

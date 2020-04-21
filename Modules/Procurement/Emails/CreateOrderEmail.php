@@ -2,7 +2,7 @@
 
 namespace Modules\Procurement\Emails;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Modules\Procurement\Dao\Models\Purchase;

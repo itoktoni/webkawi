@@ -3,7 +3,7 @@
 namespace Modules\Forwarder\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Forwarder\Dao\Models\Term;
 use App\Dao\Interfaces\MasterInterface;
 

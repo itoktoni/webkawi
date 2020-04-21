@@ -3,7 +3,7 @@
 namespace Modules\Production\Http\Controllers;
 
 use PDF;
-use Helper;
+use Plugin\Helper;
 use Plugin\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Services\MasterService;

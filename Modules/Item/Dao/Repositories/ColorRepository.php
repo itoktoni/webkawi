@@ -3,7 +3,7 @@
 namespace Modules\Item\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Item\Dao\Models\Color;
 use App\Dao\Interfaces\MasterInterface;
 

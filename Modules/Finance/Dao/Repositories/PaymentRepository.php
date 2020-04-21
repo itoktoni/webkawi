@@ -3,7 +3,7 @@
 namespace Modules\Finance\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Finance\Dao\Models\Payment;
 use App\Dao\Interfaces\MasterInterface;
 use Modules\Sales\Dao\Repositories\OrderRepository;

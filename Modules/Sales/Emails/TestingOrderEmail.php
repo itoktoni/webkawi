@@ -2,7 +2,7 @@
 
 namespace Modules\Sales\Emails;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Modules\Sales\Models\Order;

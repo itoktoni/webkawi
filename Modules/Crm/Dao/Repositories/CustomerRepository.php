@@ -3,7 +3,7 @@
 namespace Modules\Crm\Dao\Repositories;
 
 use Plugin\Notes;
-use Helper;
+use Plugin\Helper;
 use Modules\Crm\Dao\Models\Customer;
 use App\Dao\Interfaces\MasterInterface;
 

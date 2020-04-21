@@ -2,7 +2,7 @@
 
 namespace Modules\Procurement\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Modules\Item\Dao\Models\Unit;
 use Modules\Procurement\Dao\Models\Packaging;

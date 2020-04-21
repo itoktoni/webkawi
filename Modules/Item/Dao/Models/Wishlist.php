@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Dao\Models;
 
-use Plugin;
+use Plugin\Helper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;

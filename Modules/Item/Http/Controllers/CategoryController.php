@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Response;
 use App\Http\Controllers\Controller;
 use Modules\Item\Dao\Repositories\CategoryRepository;
@@ -18,7 +18,7 @@ class CategoryController extends Controller
         if (self::$model == null) {
             self::$model = new CategoryRepository();
         }
-        $this->template  = Helper::getTemplate(__class__);
+        $this->template  = Helper::getTemplate(__CLASS__);
     }
 
     public function index()
@@ -38,7 +38,6 @@ class CategoryController extends Controller
     public function create(MasterService $service)
     {
         if (request()->isMethod('POST')) {
-
             $service->save(self::$model);
         }
         return view(Helper::setViewCreate())->with($this->share());

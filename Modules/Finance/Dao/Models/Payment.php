@@ -2,7 +2,7 @@
 
 namespace Modules\Finance\Dao\Models;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Support\Facades\Auth;
 use Modules\Finance\Dao\Models\Bank;
 use Illuminate\Database\Eloquent\Model;

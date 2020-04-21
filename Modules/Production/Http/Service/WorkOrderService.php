@@ -4,7 +4,7 @@ namespace Modules\Sales\Http\Services;
 
 use Plugin\Alert;
 use Plugin\Notes;
-use Plugin;
+use Plugin\Helper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Modules\Sales\Emails\OrderEmail;

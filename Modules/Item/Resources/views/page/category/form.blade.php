@@ -20,7 +20,7 @@
 <div class="form-group">
     {!! Form::label('name', 'File', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-4 {{ $errors->has($form.'file') ? 'has-error' : ''}}">
-        <input type="hidden" value="{{ $form.'image' }}" name="$form.'image'">
+        <input type="hidden" value="{{ $form.'image' }}" name="{{ $form.'image' }}">
         <input type="file" name="{{ $form.'file' }}"
             class="{{ $errors->has($form.'file') ? 'has-error' : ''}} btn btn-default btn-sm btn-block">
         {!! $errors->first($form.'file', '<p class="help-block">:message</p>') !!}

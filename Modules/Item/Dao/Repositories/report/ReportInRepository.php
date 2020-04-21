@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Dao\Repositories\report;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Illuminate\Support\Facades\DB;
 use Modules\Item\Dao\Models\Color;

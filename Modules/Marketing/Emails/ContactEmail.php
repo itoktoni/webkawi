@@ -2,7 +2,7 @@
 
 namespace Modules\Marketing\Emails;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

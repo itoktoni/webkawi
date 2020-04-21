@@ -2,7 +2,7 @@
 
 namespace Modules\Production\Dao\Repositories;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Notes;
 use Illuminate\Support\Facades\DB;
 use App\Dao\Interfaces\MasterInterface;

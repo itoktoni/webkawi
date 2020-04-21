@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Response;
 use Maatwebsite\Excel\Excel;
 use App\Http\Controllers\Controller;

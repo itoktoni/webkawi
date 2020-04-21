@@ -2,7 +2,7 @@
 
 namespace Modules\Inventory\Http\Controllers;
 
-use Helper;
+use Plugin\Helper;
 use Plugin\Response;
 use App\Http\Controllers\Controller;
 use Modules\Inventory\Dao\Repositories\LocationRepository;

@@ -2,7 +2,7 @@
 
 namespace Modules\Marketing\Dao\Models;
 
-use Helper;
+use Plugin\Helper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;

@@ -3,7 +3,7 @@
 namespace Modules\Production\Dao\Repositories;
 
 use Plugin\Notes;
-use Plugin;
+use Plugin\Helper;
 use Illuminate\Support\Facades\DB;
 use App\Dao\Interfaces\MasterInterface;
 use Modules\Production\Dao\Repositories\WorkOrderRepository;
