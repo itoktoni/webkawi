@@ -4,7 +4,7 @@
             <div class="col-lg-4 col-sm-6">
                 <div class="footer-widget about-widget">
                     <h2>About</h2>
-                    {!! config('website.description') !!}
+                    <p>{!! config('website.description') !!}</p>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6">
