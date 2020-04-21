@@ -138,7 +138,6 @@ class MasterService
         try {
             $check = $repo->saveRepository($this->data);
         } catch (\Throwable $th) {
-            dd($th);
             Alert::error($th->getMessage());
             return $th->getMessage();
         }
