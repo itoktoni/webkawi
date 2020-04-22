@@ -64,7 +64,7 @@
                     @endisset
                 </li>
                 <li><a href="{{ route('contact') }}">CONTACT US</a></li>
-                <li><a href="{{ route('promo') }}">PROMO</a>
+                {{-- <li><a href="{{ route('promo') }}">PROMO</a> --}}
                 <li><a href="{{ route('shop') }}">SHOP<span class="new"> Sale </span></a></li>
             </ul>
         </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App;
 use Illuminate\Support\Facades\Auth;
-use Helper;
+use Plugin\Helper;
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
 use Illuminate\Support\Carbon;
@@ -171,14 +171,14 @@ class PublicController extends Controller
         } else {
             switch ($type) {
                 case 'brand':
-                    if (!session()->has('filter.item_brand_slug.' . $slug)) {
-                        session()->put('filter.item_brand_slug.' . $slug, $slug);
-                    }
+                    // if (!session()->has('filter.item_brand_slug.slug' . $slug)) {
+                        session()->put('filter.item_brand_slug.slug', $slug);
+                    // }
                     break;
                 case 'category':
-                    if (!session()->has('filter.item_category_slug.' . $slug)) {
-                        session()->put('filter.item_category_slug.' . $slug, $slug);
-                    }
+                    // if (!session()->has('filter.item_category_slug')) {
+                        session()->put('filter.item_category_slug.slug', $slug);
+                    // }
                     break;
                 case 'size':
                     if (!session()->has('filter.item_product_item_size_json.' . $slug)) {
