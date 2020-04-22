@@ -203,6 +203,14 @@
                                                         cols="50">{{ config('website.address') }}</textarea>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Maps</label>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" rows="3" name="maps" cols="50">{{ config('website.maps') }}</textarea>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                     </div>

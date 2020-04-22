@@ -102,6 +102,7 @@ class HomeController extends Controller
                 'debug' => request()->get('debug'),
                 'env' => request()->get('env'),
                 'address' => request()->get('address'),
+                'maps' => request()->get('maps'),
                 'description' => request()->get('description'),
                 'footer' => request()->get('footer'),
                 'header' => htmlentities(request()->get('header')),
