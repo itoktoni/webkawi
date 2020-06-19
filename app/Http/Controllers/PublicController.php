@@ -866,7 +866,7 @@ class PublicController extends Controller
             foreach (Cart::getContent() as $item) {
 
                 $stock = DB::table('view_stock_product')->where('id', $item->attributes['option'])->first();
-                $price_real = $item->price + $item->quantity;
+                $price_real = $item->price * $item->quantity;
 
                 $tax_name = $tax_value = null;
                 if (config('website.tax')) {
