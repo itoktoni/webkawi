@@ -75,12 +75,11 @@ $single_product->item_product_slug],'class'=>'form-horizontal','files'=>true])
 				@else
 				<button type="button" class="site-btn">Out Of Stock</button>
 				@endif
-				<div id="accordion" class="accordion-area">
-					<div class="panel">
-						<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-							<div class="panel-body">
-								{!! html_entity_decode($single_product->item_product_description) !!}
-							</div>
+				<hr>
+				<div class="panel">
+					<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+						<div class="panel-body">
+							{!! html_entity_decode($single_product->item_product_description) !!}
 						</div>
 					</div>
 				</div>
