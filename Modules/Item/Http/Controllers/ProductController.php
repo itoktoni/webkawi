@@ -2,14 +2,15 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Plugin\Helper;
 use Plugin\Notes;
+use Plugin\Helper;
 use Plugin\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Services\MasterService;
 use Intervention\Image\Facades\Image;
+use Illuminate\Http\Request;
 use Modules\Item\Http\Services\ProductService;
 use Modules\Item\Dao\Repositories\TagRepository;
 use Modules\Item\Dao\Repositories\TaxRepository;
@@ -77,9 +78,40 @@ class ProductController extends Controller
         ]));
     }
 
-    public function update(MasterService $service)
+    public function update(MasterService $service, Request $request)
     {
         if (request()->isMethod('POST')) {
+
+            $detail=$request->input('description');
+            // var_dump(libxml_use_internal_errors(true));
+
+            $dom = new \DomDocument();
+            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+            $images = $dom->getElementsByTagName('img');
+            foreach ($images as $k => $img) {
+                $data = $img->getAttribute('src');
+                if (strpos($data, 'data:image') !== false) {
+                    list($type, $data) = explode(';', $data);
+                    list(, $data)      = explode(',', $data);
+                
+                    $data = base64_decode($data);
+                    $image_name= time().$k.'.png';
+                    $path = public_path('files//product//'. $image_name);
+                
+                    file_put_contents($path, $data);
+                
+                    $img->removeattribute('src');
+                    $img->setattribute('src', Helper::files('product/'.$image_name));
+                    $img->setattribute('data-imgbigurl', Helper::files('product/'.$image_name));
+                }
+            }
+
+            $images = $dom->saveHTML();
+            ProductRepository::find(request()->get('code'))->update([
+                'item_product_description' => $images
+            ]);
+
             $service->update(self::$model);
             return redirect()->route($this->getModule() . '_data');
         }
@@ -109,7 +141,6 @@ class ProductController extends Controller
     public function upload()
     {
         if (request()->has('code')) {
-
             $code = request()->get('code');
             $path = public_path('files/product_detail');
             $photos = request()->file('file');
@@ -137,7 +168,8 @@ class ProductController extends Controller
     public function delete(MasterService $service)
     {
         $service->delete(self::$model);
-        return Response::redirectBack();;
+        return Response::redirectBack();
+        ;
     }
 
     public function data(MasterService $service)

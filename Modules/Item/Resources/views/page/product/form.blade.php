@@ -40,7 +40,7 @@
 
     {!! Form::label('name', 'Description', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-{{ isset($model->item_product_image) && !empty($model->item_product_image) ? '8' : '10' }}">
-        {!! Form::textarea($form.'description', null, ['class' => 'form-control basic', 'rows' => '3']) !!}
+        {!! Form::textarea('description', $model->item_product_description, ['class' => 'form-control basic', 'rows' => '3']) !!}
     </div>
 
     <div class="col-md-2">
@@ -95,13 +95,13 @@
     </div>
 
 </div>
-<div class="form-group">
+{{-- <div class="form-group">
 
     {!! Form::label('name', 'Care', ['class' => 'col-md-2 control-label']) !!}
     <div class="col-md-10">
         {!! Form::textarea($form.'care', null, ['id' => 'summernote-editor', 'class' => 'form-control', 'rows' => '3']) !!}
     </div>
-</div>
+</div> --}}
 
 <hr>
 
@@ -150,13 +150,7 @@
 {!! $errors->first($form.'item_size_json', '<p class="help-block">:message</p>') !!}
 </div>
 </div> --}}
-<div class="form-group">
 
-    {!! Form::label('name', 'Return', ['class' => 'col-md-2 control-label']) !!}
-    <div class="col-md-10">
-        {!! Form::textarea($form.'return', null, ['class' => 'form-control basic', 'rows' => '3']) !!}
-    </div>
-</div>
 <hr>
 <div class="form-group">
 

@@ -20,8 +20,8 @@
                             <div class="fallback">
                                 <input type="file" name="file" multiple>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
             <div id="dropimage" class="col-md-12 col-lg-12">
