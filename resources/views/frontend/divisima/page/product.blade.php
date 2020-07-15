@@ -77,41 +77,12 @@ $single_product->item_product_slug],'class'=>'form-horizontal','files'=>true])
 				@endif
 				<div id="accordion" class="accordion-area">
 					<div class="panel">
-						<div class="panel-header" id="headingOne">
-							<button class="panel-link active" data-toggle="collapse" data-target="#collapse1"
-								aria-expanded="true" aria-controls="collapse1">information</button>
-						</div>
 						<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
 							<div class="panel-body">
 								{!! html_entity_decode($single_product->item_product_description) !!}
 							</div>
 						</div>
 					</div>
-					<div class="panel">
-						<div class="panel-header" id="headingTwo">
-							<button class="panel-link" data-toggle="collapse" data-target="#collapse2"
-								aria-expanded="false" aria-controls="collapse2">care details </button>
-						</div>
-						<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-							<div class="panel-body">
-								{!! html_entity_decode($single_product->item_product_care) !!}
-							</div>
-						</div>
-					</div>
-					<div class="panel">
-						<div class="panel-header" id="headingThree">
-							<button class="panel-link" data-toggle="collapse" data-target="#collapse3"
-								aria-expanded="false" aria-controls="collapse3">shipping & Returns</button>
-						</div>
-						<div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-							<div class="panel-body">
-								{!! html_entity_decode($single_product->item_product_return) !!}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="text-center" style="margin-top:20px;">
-					<div class="addthis_inline_share_toolbox"></div>
 				</div>
 			</div>
 		</div>
@@ -122,7 +93,6 @@ $single_product->item_product_slug],'class'=>'form-horizontal','files'=>true])
 @endsection
 
 @push('javascript')
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5db9018ce37b7743"></script>
 
 <script>
 	$('#checkstock').change(function(e){
